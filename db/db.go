@@ -1,17 +1,21 @@
 package db
 
 import (
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	"context"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func InitDB(connectTo string) (*gorm.DB, error) {
-	db, err := gorm.Open(postgres.Open(connectTo), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
-	})
+func InitDB(connectTo string) (*mongo.Database, error) {
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(connectTo))
 	if err != nil {
 		return nil, err
 	}
-	return db, nil
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return client.Database("notifications"), nil
 }

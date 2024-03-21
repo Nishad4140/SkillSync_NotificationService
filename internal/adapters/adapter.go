@@ -1,12 +1,14 @@
 package adapters
 
-import "gorm.io/gorm"
+import (
+	"go.mongodb.org/mongo-driver/mongo"
+)
 
 type NotificationAdapter struct {
-	DB *gorm.DB
+	DB *mongo.Database
 }
 
-func NewNotificationAdapter(db *gorm.DB) *NotificationAdapter {
+func NewNotificationAdapter(db *mongo.Database) *NotificationAdapter {
 	return &NotificationAdapter{
 		DB: db,
 	}

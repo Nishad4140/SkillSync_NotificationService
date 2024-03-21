@@ -4,10 +4,10 @@ import (
 	"github.com/Nishad4140/SkillSync_NotificationService/internal/adapters"
 	"github.com/Nishad4140/SkillSync_NotificationService/internal/service"
 	"github.com/Nishad4140/SkillSync_NotificationService/internal/usecase"
-	"gorm.io/gorm"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func Initializer(db *gorm.DB) *service.NotificationService {
+func Initializer(db *mongo.Database) *service.NotificationService {
 	adapter := adapters.NewNotificationAdapter(db)
 	usecase := usecase.NewNotificationUsecase(adapter)
 	service := service.NewNotificationService(adapter, usecase)
