@@ -8,6 +8,7 @@ import (
 
 	"github.com/Nishad4140/SkillSync_NotificationService/db"
 	"github.com/Nishad4140/SkillSync_NotificationService/initializer"
+	"github.com/Nishad4140/SkillSync_NotificationService/kafka"
 	"github.com/Nishad4140/SkillSync_ProtoFiles/pb"
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
@@ -29,6 +30,7 @@ func main() {
 	fmt.Println("notification service running on the port 4007")
 	services := initializer.Initializer(db)
 	server := grpc.NewServer()
+	go kafka.StartConsumingAcknowledgements()
 	pb.RegisterNotificationServiceServer(server, services)
 	if err := server.Serve(lis); err != nil {
 		log.Fatalf("failed to listening on the port 4007")
