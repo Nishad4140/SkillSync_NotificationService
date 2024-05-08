@@ -41,7 +41,7 @@ func (email *NotificationService) VerifyOTP(ctx context.Context, req *pb.VerifyO
 
 func (email *NotificationService) AddNotification(ctx context.Context, req *pb.AddNotificationRequest) (*emptypb.Empty, error) {
 	if req.UserId == "" {
-		return nil, fmt.Errorf("please provide valid user id")
+		return nil, fmt.Errorf("please provide valid user id to get the notifications")
 	}
 	var message primitive.M
 	if err := json.Unmarshal([]byte(req.Notification), &message); err != nil {
