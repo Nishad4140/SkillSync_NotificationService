@@ -31,6 +31,8 @@ func SendOTP(email string) error {
 	message.SetHeader("Subject", "OTP Verification")
 	otp := generateOTP()
 
+	fmt.Println("otp :", email, otp)
+
 	message.SetBody("text/plain", "This will expire in 5 minutes. \n Your OTP is : "+otp)
 	dialer := gomail.NewDialer("smtp.gmail.com", 587, os.Getenv("SMTP_USER"), os.Getenv("SMTP_PASSWORD"))
 	otpKey := fmt.Sprintf("otp:%s", email)
