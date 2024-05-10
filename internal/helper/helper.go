@@ -42,7 +42,7 @@ func SendOTP(email string) error {
 	if err := dialer.DialAndSend(message); err != nil {
 		return err
 	}
-	fmt.Println("otp sent successfully to :", email)
+	fmt.Println("otp sent successfully to :", email, otp)
 	return nil
 }
 
